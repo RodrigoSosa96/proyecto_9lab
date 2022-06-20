@@ -1,4 +1,4 @@
-import { Field, FormSpy } from 'react-final-form'
+import { Field } from 'react-final-form'
 import { checkISBN } from '../../validators/book.validators';
 import { formatPrecio, parsePrecio } from '../../utils';
 
@@ -107,11 +107,11 @@ const RenderForm = ({ handleSubmit, form, submitting, pristine, submitError, inv
           Reset
         </button>
       </div>
-      <FormSpy>
+      {/* <FormSpy>
         {({ values }) => {
           return <pre>{JSON.stringify(values, null, 2)}</pre>
         }}
-      </FormSpy>
+      </FormSpy> */}
     </form>
     )
     
