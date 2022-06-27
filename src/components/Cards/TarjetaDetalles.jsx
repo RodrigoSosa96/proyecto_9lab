@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { Component, useContext, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 import CardSkeleton from "./CardSkeleton"
@@ -9,69 +9,91 @@ import SessionContext from "../../context/session/SessionContext"
 import { formatPrecio } from "../../utils"
 import { getBooks } from "../../api/bookAPI"
 
-const TarjetaDetalles = ({ isbn }) => { 
-  const [book, setBook] = useState({})
-  const [loading, setLoading] = useState(false)
-  const { addToCart } = useContext(CartContext)
-  const {isAdmin} = useContext(SessionContext)
-  
+export function WrapContexts(Component) {
+  return props => (
+    <SessionContext.Consumer>
+      {session => (
+        <CartContext.Consumer>
+          {cart => (
+            <Component {...props} session={session} cart={cart} />
+          )}
+        </CartContext.Consumer>
+      )}
+    </SessionContext.Consumer>
+  );
+}
 
 
-  useEffect(() => {
-    setLoading(true)
+class TarjetaDetalles extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      book: [],
+      loading: true
+    }
+  }
+
+  componentDidMount() {
+    this.setState({ loading: true })
+    const { isbn } = this.props
+
     getBooks(isbn).then(book => {
-      if (book.length || book.error) return
-      setBook(book)
-      setLoading(false)
-    })
-  }, [isbn])
+      if (book.error) throw book.error
+      this.setState({ book: book, loading: false })
+    }).catch(err => console.log(err))
+  }
 
-  useEffect(() => {
-    
-  })
+  render() {
+    const { loading } = this.state
+    const book = this.state.book
+    const { addToCart } = this.props.cart
+    const { isAdmin } = this.props.session
 
-  
-  if(loading) return (
-    <CardSkeleton/>
-  )
-  return (
-    <div className="card md:card-side  rounded-none">
-      <figure className="min-w-[20%] "><img className='object-contain md:object-cover w-full h-64 md:h-auto  ' src={book.cover} alt="Book" /></figure>
-      <div className="card-body">
-        <h2 className="card-title">{book.titulo}</h2>
-        <p className="font-mono text-xs">ISBN: {book.isbn}</p>
-        <p className="max-w-prose">{book.description}</p>
-        <div>
-          <div className="stats stats-vertical  md:stats-horizontal w-full ">
-            <div className="stat">
-              <div className="stat-title">Autor</div>
-              <div className="stat-value text-lg">{book.autor}</div>
-              <div className="stat-desc">Editorial: {book.editorial}</div>
-            </div>
-            <div className="stat">
-              <div className="stat-title">Precio</div>
-              <div className="stat-value text-lg">{formatPrecio(book.precio)}</div>
-              <div className="stat-desc">Pesos argentinos</div>
+
+
+    if(loading) return (
+      <CardSkeleton/>
+    )
+    return (
+      <div className="card md:card-side  rounded-none">
+        <figure className="min-w-[20%] "><img className='object-contain md:object-cover w-full h-64 md:h-auto  ' src={book.cover} alt="Book" /></figure>
+        <div className="card-body">
+          <h2 className="card-title">{book.titulo}</h2>
+          <p className="font-mono text-xs">ISBN: {book.isbn}</p>
+          <p className="max-w-prose">{book.description}</p>
+          <div>
+            <div className="stats stats-vertical  md:stats-horizontal w-full ">
+              <div className="stat">
+                <div className="stat-title">Autor</div>
+                <div className="stat-value text-lg">{book.autor}</div>
+                <div className="stat-desc">Editorial: {book.editorial}</div>
+              </div>
+              <div className="stat">
+                <div className="stat-title">Precio</div>
+                <div className="stat-value text-lg">{formatPrecio(book.precio)}</div>
+                <div className="stat-desc">Pesos argentinos</div>
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">Genero/s</div>
+                <div className="badge badge-outline">{!book.otroGenero ? book.genero : book.otroGenero}</div>
+              </div>
+
             </div>
 
-            <div className="stat">
-              <div className="stat-title">Genero/s</div>
-              <div className="badge badge-outline">{!book.otroGenero ? book.genero : book.otroGenero}</div>
-            </div>
+          </div>
+          <div className="card-actions justify-end">
+            {isAdmin && <Link className="btn btn-outline " to={`/admin/form/put/${book.isbn}`}>Editar</Link>}
+            <button className="btn btn-outline " onClick={() => addToCart(book)} >Agregar al carrito</button>
 
           </div>
 
         </div>
-        <div className="card-actions justify-end">
-          {isAdmin && <Link className="btn btn-outline " to={`/admin/form/put/${book.isbn}`}>Editar</Link>}
-          <button className="btn btn-outline " onClick={() => addToCart(book)} >Agregar al carrito</button>
 
-        </div>
-        
       </div>
-      
-    </div>
-  )
+    )
+  }
 }
 
-export default TarjetaDetalles
+export default WrapContexts(TarjetaDetalles)
