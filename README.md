@@ -4,7 +4,10 @@
 
 El proyecto es un CRUD realizado en `React` sobre una librería con carrito y un administrador básico de inventario.
 
+Api de la librería creado con Cloudflare serverless Workers. [`Link`][1]
 
+
+[1]:https://github.com/RodrigoSosa96/proyecto_lab9-worker
 
 ## Instalación local
 
@@ -21,16 +24,11 @@ Start the app
   npm run dev
 ```
 
-Start the server
 
-```bash
-  npm run server
-```
 
 
 ## Tech Stack
 
 **Client:** React, TailwindCSS, Axios, react-final-form, daisyUI, react-router-dom
 
-**Server:** json-server
 
