@@ -4,8 +4,6 @@
 
 El proyecto es un CRUD realizado en `React` sobre una librería con carrito y un administrador básico de inventario.
 
-Para el proyecto se hizo uso de : 
-
 
 
 ## Instalación local
