@@ -12,6 +12,7 @@ const Table = () => {
   const [selectedBooks, setSelectedBooks] = useState([])
   const [books, setBooks] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
 
   useEffect(() => {
@@ -19,6 +20,9 @@ const Table = () => {
       setBooks(data)
       setLoading(false)
       
+    }).catch(err => {
+      console.log(err)
+      setError(true)
     })
     
   }, [loading])
@@ -50,7 +54,11 @@ const Table = () => {
                 <input type="checkbox" className="checkbox pointer-events-none" disabled />
               </label>
             </th>
-            <th>Libro</th>
+            {
+            !error ?
+              <th>Libro</th> :
+              <th className="text-red-500">Error al cargar los libros</th>
+            }
             <th>Editorial</th>
             <th>Genero/s</th>
             <th>Cover</th>

@@ -1,16 +1,6 @@
 {
   "books": [
     {
-      "isbn": "9780140328721",
-      "genero": "Fantasia",
-      "titulo": "Fantastic Mr. Fox",
-      "autor": "Quentin Blake",
-      "editorial": "Puffin",
-      "description": "Mr Fox steals food from the horrible farmers Boggis, Bunce and Bean - one fat, one short, one lean. These three crooks concoct plan to dig Mr Fox out of his home, but they don't realize how truly fantastic Mr Fox is, or how far he'll go to save his family ...",
-      "cover": "https://covers.openlibrary.org/b/id/8739161-L.jpg",
-      "precio": "1990"
-    },
-    {
       "isbn": "9788498723113",
       "genero": "Ciencia ficción",
       "titulo": "Ender el xenoxida",
@@ -19,16 +9,6 @@
       "description": "Lusitania es único en la galaxia. Un planeta donde coexisten tres especies inteligentes: los cerdis, que evolucionaron en el mismo planeta; los humanos, que llegaron como colonizadores; y la Reina Colmena y sus Insectores, llevados por el joven Ender unos años atrás.\n\nEl planeta ha sido condenado por el Consejo Estelar a causa de la descolada, un virus letal para los humanos e imprescindible para la biología de los cerdis. Jane, la inteligencia artificial aliada de Ender, ha salvado Lusitania interfiriendo con la Flota Estelar y creando un insondable misterio a escala galáctica.\n\nEn el planeta Sendero, Quing-jao tiene el encargo de descubrir la desaparición de la Flota Estelar, lo que pone en peligro la existencia de Jane y la supervivencia de las tres especies inteligentes conocidas.",
       "precio": "5093",
       "cover": "https://covers.openlibrary.org/b/id/7828592-L.jpg"
-    },
-    {
-      "isbn": "9788445002698",
-      "genero": "Ciencia ficción",
-      "titulo": "El fin de la Infancia",
-      "autor": "Arthur C. Clarke",
-      "editorial": "Minotauro",
-      "description": "Recuperamos este clásico escrito por una de las figuras más influyentes de la ciencia ficción del siglo XX. Perteneciente a la tradicional y ya casi extinta «literatura de ideas», El fin de la infancia tiene como tema la futura evolución del hombre. Una raza extraña llega a la Tierra y trae consigo paz, prosperidad..., y la inesperada tragedia de la perfección. ¿Qué seguirá a la extinción de la raza humana? Arthur C. Clarke, en un final de notable belleza, plantea la más alucinante de las hipótesis.\n\n",
-      "cover": "https://images.cdn2.buscalibre.com/fit-in/360x360/88/42/88420de5f53cd917ca6083c08fe581c2.jpg",
-      "precio": "5612"
     },
     {
       "isbn": "9788445005125",
@@ -79,6 +59,23 @@
         }
       ],
       "isbn": 1
+    },
+    {
+      "articles": [
+        {
+          "isbn": "9788445002698",
+          "cantidad": 6
+        },
+        {
+          "isbn": "9788445005125",
+          "cantidad": 3
+        },
+        {
+          "isbn": "9788498723113",
+          "cantidad": 1
+        }
+      ],
+      "isbn": 2
     }
   ]
 }

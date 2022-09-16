@@ -3,9 +3,10 @@ import api, { openlibraryAPI } from "./api";
 export const getBooks = async (isbn) => {
   try {
     const res = await api.get(`/books/${isbn ? isbn : ''}`)
-    return res.data
-  } catch {
-    return { error: "GET error" }
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    throw { error: err.response.status, message: err.message};
   }
 }
 
@@ -13,7 +14,6 @@ export const postBook = async (data) => {
   try {
     const book = await getBooks(data.isbn)
     if (book?.isbn) return { error: "Libro ya existe" }
-
     const res = await api.post("/books", data)
     return res.data
   } catch {
