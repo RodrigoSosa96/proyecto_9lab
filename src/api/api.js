@@ -6,6 +6,6 @@ export const openlibraryAPI = axios.create({
 
 
 export default axios.create({
-  baseURL: 'http://localhost:3004/',
-})
+  baseURL: "https://libreria-worker.rodrigososa.com.ar/",
+});
 

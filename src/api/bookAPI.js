@@ -24,7 +24,6 @@ export const postBook = async (data) => {
 
 export const putBook = async (data) => {
   try {
-    console.log(data)
     const book = await getBooks(data.isbn)
     if (!book?.isbn) return { error: "Libro no encontrado" }
 
@@ -41,14 +40,14 @@ export const deleteBook = async (isbn) => {
       let res = await Promise.all(isbn.map(async (id) => {
         try {
           await api.delete(`/books/${id}`)
-          return {}
+          return { id, error: null }
         } catch (err) {
           return { error: "DELETE error" }
         }
 
       }))
       if (res.some(res => res.error)) return { error: "DELETE error Array" }
-      return
+      return res
     }
     const res = await api.delete(`/books/${isbn}`)
     return res.data
