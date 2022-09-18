@@ -98,7 +98,7 @@ const Table = () => {
                 className="btn btn-sm btn-outline btn-error"
                 disabled={loading || selectedBooks.length === 0}
                 onClick={() => deleteBook(selectedBooks).then(() => {
-                  // setLoading(true)
+                  setLoading(true)
                   setSelectedBooks([])
                 })}
               >Eliminar</a>

@@ -35,28 +35,32 @@ export const putBook = async (data) => {
 
 export const deleteBook = async (isbn) => {
   try {
-    if(Array.isArray(isbn)) {
-      let res = await Promise.all(isbn.map(async (id) => {
-        try {
-          await api.delete(`/books/${id}`)
-          return { id, error: null }
-        } catch (err) {
-          return { error: "DELETE error" }
-        }
-
-      }))
-      if (res.some(res => res.error)) return { error: "DELETE error Array" }
-      return res
+    if (Array.isArray(isbn)) {
+      return bulkDelete(isbn);
+    } else {
+      return simpleDelete(isbn);
     }
-    const res = await api.delete(`/books/${isbn}`)
-    return res.data
-
+  } catch {
+    return { error: "DELETE error" };
+  }
+};
+const simpleDelete = async (isbn) => {
+  try {
+    const res = await api.delete(`/books/${isbn}`);
+    return res.data;
   } catch {
     return { error: "DELETE error" }
   }
 }
 
-
+const bulkDelete = async (arrayISBN) => {
+  try {
+    const res = await api.delete(`/books`, { data: arrayISBN });
+    return res.data
+  } catch {
+    return { error: "BULK DELETE error" }
+  }
+}
 
 
 export const getLibrary = async (isbn) => {
