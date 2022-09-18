@@ -6,7 +6,7 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     define: {
-      __APP_ENV__: env.WORKER_API_URL
+      WORKER_API_URL: env.WORKER_API_URL
     },
     plugins: [react()],
   }
