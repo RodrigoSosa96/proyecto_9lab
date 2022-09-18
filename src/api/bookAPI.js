@@ -4,9 +4,9 @@ export const getBooks = async (isbn) => {
   try {
     const res = await api.get(`/books/${isbn ? isbn : ''}`)
     return res.data;
-  } catch (err) {
-    console.log(err);
-    throw { error: err.response.status, message: err.message};
+  } catch {
+    return { error: "GET error" };
+    // throw { error: err.response.status, message: err.message};
   }
 }
 
@@ -17,8 +17,7 @@ export const postBook = async (data) => {
     const res = await api.post("/books", data)
     return res.data
   } catch {
-    return { error: "POST error" }
-
+    return { error: "POST error" };
   }
 }
 
